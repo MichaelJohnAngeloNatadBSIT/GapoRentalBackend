@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Error;
+use Exception;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,9 +37,14 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->renderable(function (Throwable $e, $request) {
-            //
-            return response($e->getMessage(), $e->getCode() ?: 400);
+        $this->renderable(function (Exception $e, $request) {
+            if($e instanceof ValidationException){
+                
+                
+                return response(['errors' => $e->getMessage()], $e->getCode() ?: 400);
+            }
+
+            return response(['error' => $e->getMessage()], $e->getCode() ?: 400);
         });
 
     }

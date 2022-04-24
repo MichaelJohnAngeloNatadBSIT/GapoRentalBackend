@@ -22,3 +22,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'index']);
 Route::get('/get-data','HomeController@getdata')->middleware("cors");
 Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
+Route::post('/register', [UserController::class, 'register']);
