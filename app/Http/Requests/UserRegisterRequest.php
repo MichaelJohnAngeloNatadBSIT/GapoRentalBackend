@@ -27,7 +27,18 @@ class UserRegisterRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|Confirmed|min:6',
+            'password' => 'required|min:6',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'first_name.required' => 'First Name is required',
+            'last_name.required' => 'Last Name is required',
+            'email.required' => 'Email is required',
+            'password.required' => 'Password is required',
+            'password.confirmed' => 'Password does not match'
         ];
     }
 }
