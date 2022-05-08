@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EditUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,6 @@ Route::get('/get-data','HomeController@getdata')->middleware("cors");
 Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
 Route::post('/register', [UserController::class, 'register']);
 
-Route::apiResource('products', ProductController::class);
+Route::put('/update/{id}', [UserController::class, 'update']);
+
+Route::apiResource('products', ProductController::class,);
