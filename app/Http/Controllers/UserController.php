@@ -6,8 +6,6 @@ use App\Http\Requests\UserRegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -51,5 +49,24 @@ class UserController extends Controller
 
        return response()->json($user);
    }
+
+   public function updateImage(Request $request, $id){
+
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $picture = date('His').'-'.$filename;
+            //move image to public/img folder
+            $file->move(public_path('storage/userImage'), $picture);
+            User::where('id',$id)->update(array('image'=> $picture));
+
+            return response()->json(["message" => "Image Uploaded Succesfully"]);
+        } 
+        else{
+            return response()->json(["message" => "Select image first."]);
+        }
+    }
+   
 
 }
