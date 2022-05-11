@@ -31,7 +31,7 @@ Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
 Route::post('/register', [UserController::class, 'register']);
 
 Route::put('/update/{id}', [UserController::class, 'update']);
-<<<<<<< HEAD
+
 Route::post('/updateImage/{id}', [UserController::class, 'updateImage']);
 
 Route::get('/images/{filename}', function ($filename){
@@ -50,7 +50,22 @@ Route::get('/images/{filename}', function ($filename){
 
         return response($file, 200)->header('Content-Type', $type);
     });
-=======
->>>>>>> e7405a7a90a4f797ac582ef0cba7f5c2c865f9fc
+    
+Route::apiResource('products', ProductController::class);
+Route::post('/updateHouseImage/{id}', [ProductController::class, 'updateHouseImage']);
+Route::get('/imagesHouses/{filename}', function ($filename){
+    $path = storage_path('app/public/houseImage/' . $filename);
 
-Route::apiResource('products', ProductController::class,);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+
+        return response($file, 200)->header('Content-Type', $type);
+    });
