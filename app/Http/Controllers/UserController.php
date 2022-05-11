@@ -6,6 +6,11 @@ use App\Http\Requests\UserRegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+>>>>>>> e7405a7a90a4f797ac582ef0cba7f5c2c865f9fc
 
 class UserController extends Controller
 {
@@ -50,6 +55,7 @@ class UserController extends Controller
        return response()->json($user);
    }
 
+<<<<<<< HEAD
    public function updateImage(Request $request, $id){
 
         if ($request->hasFile('image')){
@@ -69,4 +75,6 @@ class UserController extends Controller
     }
    
 
+=======
+>>>>>>> e7405a7a90a4f797ac582ef0cba7f5c2c865f9fc
 }

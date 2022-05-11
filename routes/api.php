@@ -31,6 +31,7 @@ Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
 Route::post('/register', [UserController::class, 'register']);
 
 Route::put('/update/{id}', [UserController::class, 'update']);
+<<<<<<< HEAD
 Route::post('/updateImage/{id}', [UserController::class, 'updateImage']);
 
 Route::get('/images/{filename}', function ($filename){
@@ -49,5 +50,7 @@ Route::get('/images/{filename}', function ($filename){
 
         return response($file, 200)->header('Content-Type', $type);
     });
+=======
+>>>>>>> e7405a7a90a4f797ac582ef0cba7f5c2c865f9fc
 
 Route::apiResource('products', ProductController::class,);
