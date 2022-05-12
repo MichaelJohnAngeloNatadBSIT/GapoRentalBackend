@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditUserController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
@@ -69,3 +70,4 @@ Route::get('/imagesHouses/{filename}', function ($filename){
 
         return response($file, 200)->header('Content-Type', $type);
     });
+Route::post('/schedule/{user_id}/{product_id}', [ScheduleController::class, 'schedule']);
