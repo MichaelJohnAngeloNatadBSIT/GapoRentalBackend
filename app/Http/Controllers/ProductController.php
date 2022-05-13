@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Arrayable;
 
 class ProductController extends Controller
 {
@@ -74,5 +75,15 @@ class ProductController extends Controller
         else{
             return response()->json(["message" => "Select image first."]);
         }
+    }
+
+    public function getProductWithId(Request $request, $id){
+        // $schedules = Product::select('*')->where('user_id', '=',$id)->get();
+
+        // return response()->json($schedules);
+        if (is_array($id) || $id instanceof Arrayable) {
+            return  Product::findMany($id);
+        }
+        return  Product::find($id)->get();
     }
 }

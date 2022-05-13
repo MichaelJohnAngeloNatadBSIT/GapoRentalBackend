@@ -53,6 +53,7 @@ Route::get('/images/{filename}', function ($filename){
     });
     
 Route::apiResource('products', ProductController::class);
+Route::get('/getProductById/{id}', [ProductController::class, 'getProductWithId']);
 Route::post('/updateHouseImage/{id}', [ProductController::class, 'updateHouseImage']);
 Route::get('/imagesHouses/{filename}', function ($filename){
     $path = storage_path('app/public/houseImage/' . $filename);
@@ -70,4 +71,5 @@ Route::get('/imagesHouses/{filename}', function ($filename){
 
         return response($file, 200)->header('Content-Type', $type);
     });
-Route::post('/schedule/{user_id}/{product_id}', [ScheduleController::class, 'schedule']);
+Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{product_img}', [ScheduleController::class, 'schedule']);
+Route::get('/schedule/{user_id}', [ScheduleController::class, 'getSchedule']);
