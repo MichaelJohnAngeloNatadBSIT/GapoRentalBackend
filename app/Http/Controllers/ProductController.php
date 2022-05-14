@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -14,7 +15,7 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    public function store(Request $request){
+    public function store(Request $request, $user_id){
         // Validation
         $request->validate([
             'name' => 'required',
@@ -24,6 +25,7 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create([
+            'user_id' => $user_id,
             'name' => $request->name,
             'price' => $request->price,
             'category' => $request->category,
@@ -78,12 +80,14 @@ class ProductController extends Controller
     }
 
     public function getProductWithId(Request $request, $id){
-        // $schedules = Product::select('*')->where('user_id', '=',$id)->get();
-
-        // return response()->json($schedules);
         if (is_array($id) || $id instanceof Arrayable) {
             return  Product::findMany($id);
         }
         return  Product::find($id)->get();
+    }
+
+    public function getProductWithUserId(Request $request, $id){
+ 
+        return Product::select('*')->where('user_id','=',$id)->get();
     }
 }

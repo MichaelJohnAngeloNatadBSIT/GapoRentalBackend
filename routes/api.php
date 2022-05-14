@@ -53,7 +53,9 @@ Route::get('/images/{filename}', function ($filename){
     });
     
 Route::apiResource('products', ProductController::class);
+Route::post('/add-product/{id}', [ProductController::class, 'store']);
 Route::get('/getProductById/{id}', [ProductController::class, 'getProductWithId']);
+Route::get('/getProductByUserId/{id}', [ProductController::class, 'getProductWithUserId']);
 Route::post('/updateHouseImage/{id}', [ProductController::class, 'updateHouseImage']);
 Route::get('/imagesHouses/{filename}', function ($filename){
     $path = storage_path('app/public/houseImage/' . $filename);
