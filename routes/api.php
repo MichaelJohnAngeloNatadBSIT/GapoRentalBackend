@@ -4,6 +4,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditUserController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\PasswordResetRequestController;
+use App\Http\Controllers\ChangePasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
@@ -36,7 +38,7 @@ Route::put('/update/{id}', [UserController::class, 'update']);
 Route::post('/updateImage/{id}', [UserController::class, 'updateImage']);
 
 Route::get('/images/{filename}', function ($filename){
-    $path = storage_path('app/public/userImage/' . $filename);
+    $path = storage_path('app/public/userImage/' .$filename);
 
     if (!File::exists($path)) {
         abort(404);
@@ -53,7 +55,7 @@ Route::get('/images/{filename}', function ($filename){
     });
     
 Route::apiResource('products', ProductController::class);
-Route::post('/add-product/{id}', [ProductController::class, 'store']);
+Route::post('/add-product/{user_id}', [ProductController::class, 'addProduct']);
 Route::get('/getProductById/{id}', [ProductController::class, 'getProductWithId']);
 Route::get('/getProductByUserId/{id}', [ProductController::class, 'getProductWithUserId']);
 Route::post('/updateHouseImage/{id}', [ProductController::class, 'updateHouseImage']);
@@ -75,3 +77,6 @@ Route::get('/imagesHouses/{filename}', function ($filename){
     });
 Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{product_img}', [ScheduleController::class, 'schedule']);
 Route::get('/schedule/{user_id}', [ScheduleController::class, 'getSchedule']);
+
+Route::post('/reset-password-request', [PasswordResetRequestController::class, 'sendPasswordResetEmail']);
+Route::post('/change-password', [ChangePasswordController::class, 'passwordResetProcess']);

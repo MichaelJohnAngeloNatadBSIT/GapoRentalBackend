@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Mail\ScheduleDone;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 
 
@@ -22,10 +24,15 @@ class ScheduleController extends Controller
                 'product_price' => $product_price,
                 'product_image' => $product_img,
                 'schedule_date' => $request->schedule_date,
-                
             ]);
             return response()->json($request);
     }
+
+    // public function mail($email)
+    // {
+    //     Mail::to($email)->send(new ScheduleDone());
+    //     return response()->json(["message" => "Email sent successfully."]);
+    // }
 
     public function getSchedule(Request $request, $id){
         $schedules = Schedule::select('*')->where('user_id', '=',$id)->get();

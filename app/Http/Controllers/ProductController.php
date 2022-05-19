@@ -37,6 +37,29 @@ class ProductController extends Controller
 
     }
 
+    public function addProduct(Request $request, $user_id){
+        // Validation
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'category' => 'required',
+            // 'imageUrl' => 'required',
+        ]);
+
+        $product = Product::create([
+            'user_id' => $user_id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'category' => $request->category,
+            // 'imageUrl' => $request->imageUrl,
+            'description' => $request->description,
+        ]);
+
+        return response()->json($product);
+
+    }
+
+
     public function update(Request $request, Product $product){
          // Validation
          $request->validate([
