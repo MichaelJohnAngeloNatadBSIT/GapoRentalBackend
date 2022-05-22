@@ -42,7 +42,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'category' => 'required',
+            'address' => 'required',
             // 'imageUrl' => 'required',
         ]);
 
@@ -50,7 +50,7 @@ class ProductController extends Controller
             'user_id' => $user_id,
             'name' => $request->name,
             'price' => $request->price,
-            'category' => $request->category,
+            'address' => $request->address,
             // 'imageUrl' => $request->imageUrl,
             'description' => $request->description,
         ]);
@@ -65,14 +65,14 @@ class ProductController extends Controller
          $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'category' => 'required',
+            'address' => 'required',
             // 'imageUrl' => 'required',
         ]);
 
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
-            'category' => $request->category,
+            'address' => $request->address,
             // 'imageUrl' => $request->imageUrl,
             'description' => $request->description,
         ]);

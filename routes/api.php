@@ -34,6 +34,7 @@ Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
 Route::post('/register', [UserController::class, 'register']);
 
 Route::put('/update/{id}', [UserController::class, 'update']);
+Route::put('/change-password/{id}', [UserController::class, 'changePassword']);
 
 Route::post('/updateImage/{id}', [UserController::class, 'updateImage']);
 
@@ -79,4 +80,3 @@ Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{pr
 Route::get('/schedule/{user_id}', [ScheduleController::class, 'getSchedule']);
 
 Route::post('/reset-password-request', [PasswordResetRequestController::class, 'sendPasswordResetEmail']);
-Route::post('/change-password', [ChangePasswordController::class, 'passwordResetProcess']);

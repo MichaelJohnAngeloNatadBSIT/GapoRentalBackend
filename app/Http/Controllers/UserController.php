@@ -6,6 +6,7 @@ use App\Http\Requests\UserRegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -69,6 +70,31 @@ class UserController extends Controller
         else{
             return response()->json(["message" => "Select image first."]);
         }
+    }
+
+    public function changePassword(Request $request, $id){
+        $user = User::find($id);
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required'
+        ],
+        [
+            'old_password.required' => 'Please Input your old Password',
+            'new_password.required' => 'Please Input your new Password'
+        ]);
+        if(!Hash::check($request->input('old_password'), $user->password)){
+
+            return response()->json(['message' => 'old password not match'], 401);
+        }
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+     
+        return response()->json($user);
+    
+        
+  
+
+   
     }
    
 
