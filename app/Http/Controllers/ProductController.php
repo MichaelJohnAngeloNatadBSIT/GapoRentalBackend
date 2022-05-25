@@ -20,7 +20,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'category' => 'required',
+            'address' => 'required',
             // 'imageUrl' => 'required',
         ]);
 
@@ -28,7 +28,8 @@ class ProductController extends Controller
             'user_id' => $user_id,
             'name' => $request->name,
             'price' => $request->price,
-            'category' => $request->category,
+            'address' => $request->address,
+            'status' => $request->status,
             // 'imageUrl' => $request->imageUrl,
             'description' => $request->description,
         ]);
@@ -43,6 +44,7 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required',
             'address' => 'required',
+            'status' => 'required',
             // 'imageUrl' => 'required',
         ]);
 
@@ -51,6 +53,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'address' => $request->address,
+            'status' => $request->status,
             // 'imageUrl' => $request->imageUrl,
             'description' => $request->description,
         ]);
