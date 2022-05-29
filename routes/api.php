@@ -5,7 +5,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditUserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\PasswordResetRequestController;
+use App\Http\Controllers\AcceptedScheduleController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Models\AcceptedSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
@@ -31,9 +33,11 @@ Route::get('/', [UserController::class, 'index']);
 Route::get('/get-data','HomeController@getdata')->middleware("cors");
 Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
 
+
 Route::post('/register', [UserController::class, 'register']);
 
 Route::put('/update/{id}', [UserController::class, 'update']);
+Route::get('/userById/{userId}', [UserController::class, 'getUserById']);
 Route::put('/change-password/{id}', [UserController::class, 'changePassword']);
 
 Route::post('/updateImage/{id}', [UserController::class, 'updateImage']);
@@ -76,7 +80,11 @@ Route::get('/imagesHouses/{filename}', function ($filename){
 
         return response($file, 200)->header('Content-Type', $type);
     });
-Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{product_img}', [ScheduleController::class, 'schedule']);
+Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{product_img}/{post_user_id}', [ScheduleController::class, 'schedule']);
 Route::get('/schedule/{user_id}', [ScheduleController::class, 'getSchedule']);
+Route::delete('/delete-schedule/{schedule_id}',[ScheduleController::class, 'deleteSchedule']);
+Route::get('/schedule-post-user-id/{post_user_id}', [ScheduleController::class, 'getScheduleWithPostUserId']);
 
 Route::post('/reset-password-request', [PasswordResetRequestController::class, 'sendPasswordResetEmail']);
+
+Route::post('/createAcceptedSchedule/{user_id}/{product_id}/{schedule_id}/{schedule_date}', [AcceptedScheduleController::class, 'createAcceptedSchedule']);

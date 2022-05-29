@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProductImage extends Migration
+class AddPostUserIdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class AddProductImage extends Migration
      */
     public function up()
     {
+
         Schema::table('schedules', function (Blueprint $table) {
             //
-            // $table->string('product_image')->after('product_name');
             $table->unsignedBigInteger('post_user_id');
             $table->foreign('post_user_id')
             ->references('user_id')->on('products')->onDelete('cascade');
-
         });
     }
 

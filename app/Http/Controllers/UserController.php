@@ -90,10 +90,11 @@ class UserController extends Controller
         $user->save();
      
         return response()->json($user);
-    
-        
 
     }
 
+    public function getUserById($id){
+            return User::select('*')->where('id','=',$id)->get();
+    }
 
 }
