@@ -116,4 +116,9 @@ class ProductController extends Controller
  
         return Product::select('*')->where('user_id','=',$id)->get();
     }
+
+    public function getProductsWithoutUserId(Request $request, $id){
+ 
+        return Product::select('*')->where('user_id','!=',$id)->get();
+    }
 }

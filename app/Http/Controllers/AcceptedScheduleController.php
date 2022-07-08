@@ -21,4 +21,10 @@ class AcceptedScheduleController extends Controller
 
     }
 
+    
+    public function getAcceptedScheduleById(Request $request, $id){
+        $schedules = AcceptedSchedule::select('*')->where('user_id', '=',$id)->get();
+
+        return response()->json($schedules);
+    }
 }
