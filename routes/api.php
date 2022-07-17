@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,12 +32,11 @@ use Illuminate\Support\Facades\File;
 //     return $request->user();
 // });
 
-Route::get('/', [UserController::class, 'index']);
+// Route::get('/', [UserController::class, 'index']);
 
 Route::get('/get-data','HomeController@getdata')->middleware("cors");
 
 Route::get('/user', [UserController::class, 'user'])->middleware('auth:api');
-
 
 Route::post('/register', [UserController::class, 'register']);
 
@@ -95,6 +95,7 @@ Route::get('/imagesHouses/{filename}', function ($filename){
 
         return response($file, 200)->header('Content-Type', $type);
     });
+
 Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{product_img}/{post_user_id}', [ScheduleController::class, 'schedule']);
 
 Route::get('/schedule/{user_id}', [ScheduleController::class, 'getSchedule']);
@@ -110,10 +111,42 @@ Route::post('/createAcceptedSchedule/{user_id}/{product_id}/{schedule_id}/{sched
 Route::get('/getAcceptedScheduleById/{user_id}', [AcceptedScheduleController::class, 'getAcceptedScheduleById']);
 
 
-Route::get('/admin', [HomeController::class, 'index']);
+// Route::get('/', [AdminController::class, 'user_list']);
 
-// Route::get('/first_page', [HomeController::class, 'first_page']);
+// Route::get('/second_page', [HomeController::class, 'second_page']);
 
-Route::get('/second_page', [HomeController::class, 'second_page']);
+Route::get('/create_form', [AdminController::class, 'create_user']);
+
+Route::post('/create_user', [AdminController::class, 'store']);
 
 Route::get('/user_list', [AdminController::class, 'user_list']);
+
+Route::get('/update_form/{user}', [AdminController::class, 'update_form']);
+
+Route::put('/update_user/{user}', [AdminController::class, 'update_user']);
+
+Route::get('/delete_user/{user}', [AdminController::class, 'destroy']);
+
+Route::get('/', [AdminController::class, 'index'])->name('login');
+
+Route::post('post-login', [AdminController::class, 'postLogin'])->name('login.post'); 
+
+Route::get('registration', [AdminController::class, 'registration'])->name('register');
+
+Route::post('post-registration', [AdminController::class, 'postRegistration'])->name('register.post'); 
+
+Route::get('dashboard', [AdminController::class, 'dashboard']); 
+
+Route::get('logout', [AdminController::class, 'logout'])->name('logout');
+
+Route::get('/house_list', [AdminController::class, 'houses']);
+
+Route::get('/update_house_form/{product}', [AdminController::class, 'update_house_form']);
+
+Route::put('/update_house/{product}', [AdminController::class, 'update_house']);
+
+Route::get('/delete_product/{product}', [AdminController::class, 'delete_product']);
+
+Route::get('/create_house_form', [AdminController::class, 'create_house']);
+
+Route::post('/create_house', [AdminController::class, 'create_post_house']);

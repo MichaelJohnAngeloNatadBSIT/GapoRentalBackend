@@ -9,13 +9,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
 {
-    public function index(){
-        return User::all();
-    }
+    // public function index(){
+    //     return User::all();
+    // }
 
     public function user(Request $request){
         return $request->user();
@@ -40,6 +41,7 @@ class UserController extends Controller
                 'last_name' => $request->last_name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
+                'remember_token' => Str::random(10),
             ]);
             return response()->json($request);
     }
