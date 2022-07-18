@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
@@ -27,12 +28,15 @@ class AdminController extends Controller
     }
 
     public function update_form(User $user){
-
-        return view('user.update_form', ['user' => $user]);
+        if(Auth::guard('admin')->check()){
+            return view('user.update_form', ['user' => $user]);
+        }
+        Alert::error('Opps! You do not have access');
+        return redirect("/");
     }
 
     public function update_user(User $user){ 
-
+    if(Auth::guard('admin')->check()){
         request()->validate([
             'email' => 'required',
             'first_name' => 'required',
@@ -47,12 +51,21 @@ class AdminController extends Controller
 
         return redirect('user_list')->withSuccess('User Edited Successfully!');
     }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
+    }
 
     public function create_user(){
+    if(Auth::guard('admin')->check()){
         return view('/user.create_form');
+    }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
+       
     }
 
     public function store(){
+    if(Auth::guard('admin')->check()){
         request()->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -76,12 +89,19 @@ class AdminController extends Controller
         Alert::success('User Successfully Created');
         return redirect('user_list')->with('success', 'User Created Successfully');
     }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
+    }
 
     public function destroy($id){
-        // $user->delete();
-        $delete = User::where('id', $id)->delete();
+        if(Auth::guard('admin')->check()){
+            // $user->delete();
+            $delete = User::where('id', $id)->delete();
 
-        return redirect('user_list');
+            return redirect('user_list');
+        }
+        Alert::error('Opps! You do not have access');
+        return redirect("/");
     }
 
 
@@ -178,6 +198,55 @@ class AdminController extends Controller
         'password' => Hash::make($data['password'])
       ]);
     }
+
+    public function update_admin_profile_form(){
+        return view('admin.admin_update_form');
+    }
+
+    
+    public function update_admin(Admin $admin){ 
+        if(Auth::guard('admin')->check()){
+    
+            request()->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required',
+                // 'password' => 'required',
+            ]);
+    
+            $admin->update([
+                'first_name' => request('first_name'),
+                'last_name' => request('last_name'),
+                'email' => request('email'),
+                // 'password' => request('description'),
+            ]);
+    
+            return redirect('dashboard')->withSuccess('Your Profile is Edited Successfully!');
+        }
+        Alert::error('Opps! You do not have access');
+        return redirect("/");
+        }
+
+        public function update_image(Request $request, $id){
+
+            if(Auth::guard('admin')->check()){
+                if ($request->hasFile('image')){
+                    $file = $request->file('image');
+                    $filename = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+                    $picture = date('His').'-'.$filename;
+                    //move image to public/img folder
+                    $file->move(public_path('storage/adminImage'), $picture);
+                    Admin::where('id',$id)->update(array('image'=> $picture));
+        
+                    return redirect('dashboard')->withSuccess('Your Profile Picture is Updated Successfully!');
+                } 
+                else{
+                    return redirect('dashboard')->with('error', 'Something went wrong');
+                }
+            }
+        }
+
     
     /**
      * Write code on Method
@@ -204,10 +273,15 @@ class AdminController extends Controller
     }
 
     public function create_house(){
+    if(Auth::guard('admin')->check()){
         return view('/product.create_house_form');
+    }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
     }
 
     public function create_post_house(){
+    if(Auth::guard('admin')->check()){
         request()->validate([
             'name' => 'required',
             'price' => 'required',
@@ -233,13 +307,21 @@ class AdminController extends Controller
         ]);
         return redirect('house_list')->with('success', 'House Created Successfully');
     }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
+    }
 
     public function update_house_form(Product $product){
+    if(Auth::guard('admin')->check()){
 
         return view('product.update_house_form', ['product' => $product]);
     }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
+    }
 
     public function update_house(Product $product){ 
+    if(Auth::guard('admin')->check()){
 
         request()->validate([
             'name' => 'required',
@@ -260,13 +342,63 @@ class AdminController extends Controller
 
         return redirect('house_list')->withSuccess('House Edited Successfully!');
     }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
+    }
 
     public function delete_product($id){
+    if(Auth::guard('admin')->check()){
         // $user->delete();
         $delete = Product::where('id', $id)->delete();
 
         return redirect('house_list');
     }
+    Alert::error('Opps! You do not have access');
+    return redirect("/");
+    }
+
+
+    //Schedule Functions
+
+    public function schedules(){
+        if(Auth::guard('admin')->check()){
+            $schedules = Schedule::all();
+
+            return view('schedule.schedule_list', ['schedules' => $schedules]);
+        }
+        Alert::error('Opps! You do not have access');
+        return redirect("/");
+    }
+
+    public function update_schedule_form(Schedule $schedule){
+        if(Auth::guard('admin')->check()){
+    
+            return view('schedule.update_schedule_form', ['schedule' => $schedule]);
+        }
+        Alert::error('Opps! You do not have access');
+        return redirect("/");
+        }
+
+    public function update_schedule(Schedule $schedule){ 
+        if(Auth::guard('admin')->check()){
+    
+            request()->validate([
+                'product_name' => 'required',
+                'product_price' => 'required',
+                'schedule_date' => 'required',
+            ]);
+    
+            $schedule->update([
+                'product_name' => request('required'),
+                'product_price' => request('required'),
+                'schedule_date' => request('required'),
+            ]);
+    
+            return redirect('schedule.schedule_list')->withSuccess('Schedule Edited Successfully!');
+        }
+        Alert::error('Opps! You do not have access');
+        return redirect("/");
+        }
 
     
 }

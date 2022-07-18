@@ -195,10 +195,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset("/assets/logo/gapo-rental-logo.jpg")}}" class="img-circle elevation-2" alt="User Image">
+          {{-- http://192.168.1.178:80/ --}}
+          <img src="http://127.0.0.1:8000/admin_image/{{Auth::guard('admin')->user()->image }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::guard('admin')->user()->email }}</a>
+          <a href="{{url("/update_profile_form")}}" class="d-block">{{ Auth::guard('admin')->user()->email }}</a>
           {{-- <a href="#" class="d-block">{{ Auth::guard('admin')->id() }}</a> --}}
         </div>
       </div>
@@ -239,6 +240,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{{url("/house_list")}}" class="nav-link {{ (app('request')->route()->uri() == "house_list") ? "active" : ""}} ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Houses</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url("/schedule_list")}}" class="nav-link {{ (app('request')->route()->uri() == "schedule_list") ? "active" : ""}} ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Schedules</p>
                 </a>
               </li>
             </ul>

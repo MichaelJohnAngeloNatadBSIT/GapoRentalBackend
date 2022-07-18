@@ -135,6 +135,29 @@ Route::get('registration', [AdminController::class, 'registration'])->name('regi
 
 Route::post('post-registration', [AdminController::class, 'postRegistration'])->name('register.post'); 
 
+Route::get('update_profile_form', [AdminController::class, 'update_admin_profile_form']);
+
+Route::put('update_admin/{admin}', [AdminController::class, 'update_admin']);
+
+Route::post('update_admin_image/{id}', [AdminController::class, 'update_image']);
+
+Route::get('/admin_image/{filename}', function ($filename){
+    $path = storage_path('app/public/adminImage/' .$filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+
+        return response($file, 200)->header('Content-Type', $type);
+    });
+
 Route::get('dashboard', [AdminController::class, 'dashboard']); 
 
 Route::get('logout', [AdminController::class, 'logout'])->name('logout');
@@ -150,3 +173,9 @@ Route::get('/delete_product/{product}', [AdminController::class, 'delete_product
 Route::get('/create_house_form', [AdminController::class, 'create_house']);
 
 Route::post('/create_house', [AdminController::class, 'create_post_house']);
+
+Route::get('/schedule_list', [AdminController::class, 'schedules']);
+
+Route::get('/update_schedule_form/{schedule}', [AdminController::class, 'update_schedule_form']);
+
+Route::put('/update_schedule/{schedule}', [AdminController::class, 'update_schedule']);

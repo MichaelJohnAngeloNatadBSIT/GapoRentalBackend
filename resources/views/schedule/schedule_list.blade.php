@@ -5,12 +5,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">House List Page</h1>
+        <h1 class="m-0">Schedules List Page</h1>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">House List Page</li>
+          <li class="breadcrumb-item active">Schedule List Page</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -21,49 +21,49 @@
 <!-- Main content -->
 
       <div class="card">
-        <div class="card-header">
+        {{-- <div class="card-header">
           <a href="{{ url('create_house_form') }}">
             <button type="submit" class="btn btn-primary">Create Post of House</button>
           </a>
-        </div>
+        </div> --}}
         <!-- /.card-header -->
        
         <div class="card-body">
           <table id="example1" class="table table-bordered table-striped">    
             <thead>
             <tr>
-              <th>Action</th>
-              <th>House ID</th>
+              {{-- <th>Action</th> --}}
+              <th>Schedule ID</th>
               <th>User ID</th>
+              <th>schedule ID</th>
+              <th>House Name</th>
               <th>House Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Address</th>
-              <th>Description</th>
-              <th>Status</th>
+              <th>House Price</th>
+              <th>Schedule Date</th>
+              <th>User ID of the Original Poster</th>
               <th>Created At</th>
               <th>Updated At</th>
 
             </tr>
             </thead>
             <tbody>
-            @foreach ($products as $product)
+            @foreach ($schedules as $schedule)
               <tr>
-                <td>
-                  <a href="{{ url('update_house_form', $product) }}">
+                {{-- <td>
+                  <a href="{{ url('update_schedule_form', $schedule) }}">
                     <button type="submit" class="btn btn-info">Edit</button>
                   </a>
-                </td>
-                <td>{{$product->id}}</td>
-                <td>{{$product->user_id}}</td>
-                <td><img src="/imagesHouses/{{$product->imageUrl}}" alt="House Image" height="100" width="100"></td>
-                <td>{{$product->name}}</td>
-                <td>{{$product->price}}</td>
-                <td>{{$product->address}}</td>
-                <td>{{$product->description}}</td>
-                <td>{{$product->status}}</td>
-                <td>{{$product->created_at}}</td>
-                <td>{{$product->updated_at}}</td>
+                </td> --}}
+                <td>{{$schedule->id}}</td>
+                <td>{{$schedule->user_id}}</td>
+                <td>{{$schedule->product_id}}</td>
+                <td>{{$schedule->product_name}}</td>
+                <td><img src="/imagesHouses/{{$schedule->product_image}}" alt="House Image" height="100" width="100"></td>
+                <td>{{$schedule->product_price}}</td>
+                <td>{{$schedule->schedule_date}}</td>
+                <td>{{$schedule->post_user_id}}</td>
+                <td>{{$schedule->created_at}}</td>
+                <td>{{$schedule->updated_at}}</td>
               </tr> 
             </form> 
             @endforeach
