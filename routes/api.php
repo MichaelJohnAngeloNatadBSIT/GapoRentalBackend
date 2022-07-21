@@ -9,6 +9,7 @@ use App\Http\Controllers\AcceptedScheduleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SalesController;
 use App\Models\AcceptedSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,10 @@ Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{pr
 
 Route::get('/schedule/{user_id}', [ScheduleController::class, 'getSchedule']);
 
+Route::get('/get_user/{user_id}', [ScheduleController::class, 'getUserWithId']);
+
+Route::get('/get_product/{product_id}', [ScheduleController::class, 'getProductWithId']);
+
 Route::delete('/delete-schedule/{schedule_id}',[ScheduleController::class, 'deleteSchedule']);
 
 Route::get('/schedule-post-user-id/{post_user_id}', [ScheduleController::class, 'getScheduleWithPostUserId']);
@@ -179,3 +184,5 @@ Route::get('/schedule_list', [AdminController::class, 'schedules']);
 Route::get('/update_schedule_form/{schedule}', [AdminController::class, 'update_schedule_form']);
 
 Route::put('/update_schedule/{schedule}', [AdminController::class, 'update_schedule']);
+
+Route::post('/record_sale/{schedule_id}/{user_id}/{product_id}/{product_name}/{product_price}/{product_img}/{post_user_id}', [SalesController::class, 'recordSale']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\User;
 use App\Models\Product;
 use App\Mail\ScheduleDone;
 use Illuminate\Support\Facades\Mail;
@@ -50,6 +51,18 @@ class ScheduleController extends Controller
 
     public function deleteSchedule(Request $request, $schedule_id){  
         $schedules = Schedule::select('*')->where('id', '=', $schedule_id)->delete();
+
+        return response()->json($schedules);
+    }
+
+    public function getUserWIthId(Request $request, $id){
+        $schedules = User::select('*')->where('id', '=',$id)->get();
+
+        return response()->json($schedules);
+    }
+
+    public function getProductWIthId(Request $request, $id){
+        $schedules = Product::select('*')->where('id', '=',$id)->get();
 
         return response()->json($schedules);
     }

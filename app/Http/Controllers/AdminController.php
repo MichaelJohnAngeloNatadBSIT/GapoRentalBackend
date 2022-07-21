@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Sales;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -15,6 +16,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
+
+
+    // public function dashboard(){
+    //     return view('auth.login');
+    // }  
     //user functions
 
     public function user_list(){
@@ -177,13 +183,20 @@ class AdminController extends Controller
      */
     public function dashboard(){
         if(Auth::guard('admin')->check()){
-            $users = User::all();
+            // $users = User::all();
 
-            return view('user.user_list', ['users' => $users]);
+            $users_count = User::count();
+            $posts_count = Product::count();
+            $schedules_count = Schedule::count();
+            $sales_total = Sales::get()->sum("product_price");
+            return view('dashboard', ['users_count' => $users_count, 'posts_count' => $posts_count, 'schedules_count' => $schedules_count, 'sales_total' => $sales_total]);
+            // return view('dashboard');
         }
         Alert::error('Opps! You do not have access');
         return redirect("/");
     }
+
+
     
     /**
      * Write code on Method

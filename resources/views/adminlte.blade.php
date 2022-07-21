@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{url("/dashboard")}}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -195,8 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          {{-- http://192.168.1.178:80/ --}}
-          <img src="http://127.0.0.1:8000/admin_image/{{Auth::guard('admin')->user()->image }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{url("/admin_image")}}/{{Auth::guard('admin')->user()->image }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="{{url("/update_profile_form")}}" class="d-block">{{ Auth::guard('admin')->user()->email }}</a>
@@ -222,14 +221,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="{{url("/dashboard")}}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Starter Pages
+                Dashboard
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url("/dashboard")}}" class="nav-link {{ (app('request')->route()->uri() == "dashboard") ? "active" : ""}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="{{url("/user_list")}}" class="nav-link {{ (app('request')->route()->uri() == "user_list") ? "active" : ""}}">
                   <i class="far fa-circle nav-icon"></i>

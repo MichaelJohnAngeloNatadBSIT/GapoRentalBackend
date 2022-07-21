@@ -121,4 +121,13 @@ class ProductController extends Controller
  
         return Product::select('*')->where('user_id','!=',$id)->get();
     }
+
+    public function getProductWithUserIdandId(Request $request, $user_id, $product_id){
+        if (is_array($user_id) || $user_id instanceof Arrayable) {
+            return  Product::findMany($user_id);
+        }
+
+        return Product::select('*')->where(['user_id', '=', $user_id], ['product_id', '=', $product_id])->get();
+        // return  Product::find($user_id)->get();
+    }
 }
