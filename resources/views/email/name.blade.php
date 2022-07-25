@@ -1,3 +1,3 @@
-<div>
+{{-- <div>
     Hi, mail sent..
-</div>
+</div> --}}

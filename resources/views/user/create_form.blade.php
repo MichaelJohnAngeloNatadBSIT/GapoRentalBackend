@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Password</label>
                 <input type="password" class="form-control" id="exampleInputEmail1" name="password" placeholder="Password" id="password">
-                <input type="checkbox" onclick="showHide()">Show Password
+                {{-- <input type="checkbox" onclick="showHide()">Show Password --}}
             </div>
             {{-- <div class="form-group">
                 <label for="exampleInputEmail1">Last Name</label>

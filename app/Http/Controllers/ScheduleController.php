@@ -26,6 +26,7 @@ class ScheduleController extends Controller
                 'product_price' => $product_price,
                 'product_image' => $product_img,
                 'schedule_date' => $request->schedule_date,
+                'status' => 'not approved',
                 'post_user_id' => $post_user_id,
             ]);
             return response()->json($request);
@@ -38,13 +39,19 @@ class ScheduleController extends Controller
     // }
 
     public function getSchedule(Request $request, $id){
-        $schedules = Schedule::select('*')->where('user_id', '=',$id)->get();
+        $schedules = Schedule::select('*')->where('user_id', '=',$id)->where('status', '=', 'not approved')->get();
 
         return response()->json($schedules);
     }
 
     public function getScheduleWithPostUserId(Request $request, $id){
-        $schedules = Schedule::select('*')->where('post_user_id', '=',$id)->get();
+        $schedules = Schedule::select('*')->where('post_user_id', '=',$id)->where('status', '=', 'not approved')->get();
+
+        return response()->json($schedules);
+    }
+
+    public function getApprovedScheduleWithPostUserId(Request $request, $id){
+        $schedules = Schedule::select('*')->where('post_user_id', '=',$id)->where('status', '=', 'approved')->get();
 
         return response()->json($schedules);
     }
@@ -66,4 +73,5 @@ class ScheduleController extends Controller
 
         return response()->json($schedules);
     }
+
 }

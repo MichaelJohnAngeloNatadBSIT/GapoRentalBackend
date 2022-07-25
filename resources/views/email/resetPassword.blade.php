@@ -1,4 +1,4 @@
-@component('mail::message')
+{{-- @component('mail::message')
 # Reset Password
 Reset or change your password.
 
@@ -9,4 +9,9 @@ Thanks,<br>
 
 Thanks,<br>
 {{ config('app.name') }}
-@endcomponent
+@endcomponent --}}
+
+<h1>Forget Password Email</h1>
+   
+You can reset password from bellow link:
+<a href="{{ route('reset.password.get', $token) }}">Reset Password</a>

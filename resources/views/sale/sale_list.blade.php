@@ -5,12 +5,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">Schedules List Page</h1>
+        <h1 class="m-0">House List Page</h1>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Schedule List Page</li>
+          <li class="breadcrumb-item active">House List Page</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -33,39 +33,35 @@
             <thead>
             <tr>
               {{-- <th>Action</th> --}}
+              <th>Sale ID</th>
               <th>Schedule ID</th>
               <th>User ID</th>
-              <th>schedule ID</th>
-              <th>House Name</th>
+              <th>Product ID</th>
+              <th>User ID of the Poster</th>
+              <th>Price</th>
               <th>House Image</th>
-              <th>House Price</th>
-              <th>Schedule Date</th>
-              <th>Status</th>
-              <th>User ID of the Original Poster</th>
               <th>Created At</th>
               <th>Updated At</th>
 
             </tr>
             </thead>
             <tbody>
-            @foreach ($schedules as $schedule)
+            @foreach ($sales as $sale)
               <tr>
                 {{-- <td>
-                  <a href="{{ url('update_schedule_form', $schedule) }}">
+                  <a href="{{ url('update_house_form', $sale) }}">
                     <button type="submit" class="btn btn-info">Edit</button>
                   </a>
                 </td> --}}
-                <td>{{$schedule->id}}</td>
-                <td>{{$schedule->user_id}}</td>
-                <td>{{$schedule->product_id}}</td>
-                <td>{{$schedule->product_name}}</td>
-                <td><img src="/imagesHouses/{{$schedule->product_image}}" alt="House Image" height="100" width="100"></td>
-                <td>{{$schedule->product_price}}</td>
-                <td>{{$schedule->schedule_date}}</td>
-                <td>{{$schedule->status}}</td>
-                <td>{{$schedule->post_user_id}}</td>
-                <td>{{$schedule->created_at}}</td>
-                <td>{{$schedule->updated_at}}</td>
+                <td>{{$sale->id}}</td>
+                <td>{{$sale->schedule_id}}</td>
+                <td>{{$sale->user_id}}</td>
+                <td>{{$sale->product_id}}</td>
+                <td>{{$sale->post_user_id}}</td>
+                <td>{{$sale->product_price}}</td>
+                <td><img src="/imagesHouses/{{$sale->product_image}}" alt="House Image" height="100" width="100"></td>
+                <td>{{$sale->created_at}}</td>
+                <td>{{$sale->updated_at}}</td>
               </tr> 
             </form> 
             @endforeach

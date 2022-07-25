@@ -15,10 +15,10 @@
       <form action="{{ route('register.post') }}" method="POST">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="First Name" name="first_name">
-          @if ($errors->has('first_name'))
+          <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+          {{-- @if ($errors->has('first_name'))
           <span class="text-danger">{{ $errors->first('first_name') }}</span>
-          @endif
+          @endif --}}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -26,10 +26,10 @@
           </div>
         </div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Last Name" name="last_name">
-            @if ($errors->has('last_name'))
+            <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+            {{-- @if ($errors->has('last_name'))
             <span class="text-danger">{{ $errors->first('last_name') }}</span>
-            @endif
+            @endif --}}
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -37,10 +37,10 @@
             </div>
           </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          @if ($errors->has('email'))
+          <input type="email" class="form-control" placeholder="Email" name="email" required>
+          {{-- @if ($errors->has('email'))
           <span class="text-danger">{{ $errors->first('email') }}</span>
-          @endif
+          @endif --}}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -48,10 +48,10 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          @if ($errors->has('password'))
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+          {{-- @if ($errors->has('password'))
           <span class="text-danger">{{ $errors->first('password') }}</span>
-          @endif
+          @endif --}}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password" name="confirm_password">
+          <input type="password" class="form-control" placeholder="Retype password" name="password_confirmation" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

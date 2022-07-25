@@ -17,7 +17,7 @@
             <form action="{{ route('login.post') }}" method="POST">
                 @csrf
                 <div class="input-group mb-3">
-                <input type="email" class="form-control" placeholder="Email" name="email">
+                <input type="email" class="form-control" placeholder="Email" name="email" required> 
                 @if ($errors->has('email'))
                 <span class="text-danger">{{ $errors->first('email') }}</span>
                 @endif
@@ -28,7 +28,7 @@
                 </div>
                 </div>
                 <div class="input-group mb-3">
-                <input type="password" class="form-control" placeholder="Password" name="password">
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
                 @if ($errors->has('password'))
                 <span class="text-danger">{{ $errors->first('password') }}</span>
                 @endif
@@ -57,7 +57,7 @@
             <!-- /.social-auth-links -->
 
             <p class="mb-1">
-                <a href="forgot-password.html">I forgot my password</a>
+                <a href="{{ route('forget.password.get') }}">I forgot my password</a>
             </p>
             <p class="mb-0">
                 <a href="{{ route('register') }}" class="text-center">Register a new Admin</a>

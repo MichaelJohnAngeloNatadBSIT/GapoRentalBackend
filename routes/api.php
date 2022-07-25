@@ -101,6 +101,8 @@ Route::post('/schedule/{user_id}/{product_id}/{product_name}/{product_price}/{pr
 
 Route::get('/schedule/{user_id}', [ScheduleController::class, 'getSchedule']);
 
+Route::get('/get_approved_schedule/{user_id}', [AcceptedSchedule::class, 'getApprovedSchedule']);
+
 Route::get('/get_user/{user_id}', [ScheduleController::class, 'getUserWithId']);
 
 Route::get('/get_product/{product_id}', [ScheduleController::class, 'getProductWithId']);
@@ -109,9 +111,11 @@ Route::delete('/delete-schedule/{schedule_id}',[ScheduleController::class, 'dele
 
 Route::get('/schedule-post-user-id/{post_user_id}', [ScheduleController::class, 'getScheduleWithPostUserId']);
 
+Route::get('/approved-schedule-post-user-id/{post_user_id}', [ScheduleController::class, 'getApprovedScheduleWithPostUserId']);
+
 Route::post('/reset-password-request', [PasswordResetRequestController::class, 'sendPasswordResetEmail']);
 
-Route::post('/createAcceptedSchedule/{user_id}/{product_id}/{schedule_id}/{schedule_date}', [AcceptedScheduleController::class, 'createAcceptedSchedule']);
+Route::post('/createAcceptedSchedule/{user_id}/{product_id}/{schedule_id}/{post_user_id}/{schedule_date}', [AcceptedScheduleController::class, 'createAcceptedSchedule']);
 
 Route::get('/getAcceptedScheduleById/{user_id}', [AcceptedScheduleController::class, 'getAcceptedScheduleById']);
 
@@ -165,6 +169,8 @@ Route::get('/admin_image/{filename}', function ($filename){
 
 Route::get('dashboard', [AdminController::class, 'dashboard']); 
 
+
+
 Route::get('logout', [AdminController::class, 'logout'])->name('logout');
 
 Route::get('/house_list', [AdminController::class, 'houses']);
@@ -186,3 +192,20 @@ Route::get('/update_schedule_form/{schedule}', [AdminController::class, 'update_
 Route::put('/update_schedule/{schedule}', [AdminController::class, 'update_schedule']);
 
 Route::post('/record_sale/{schedule_id}/{user_id}/{product_id}/{product_name}/{product_price}/{product_img}/{post_user_id}', [SalesController::class, 'recordSale']);
+
+Route::get('/sale_list', [AdminController::class, 'sales']);
+
+// Route::get('/forget-password', 'ForgotPasswordController@getEmail');
+
+// Route::get('/forget-password', [ChangePasswordController::class, 'getEmail']);
+
+// Route::post('/forget-password', [ChangePasswordController::class, 'postEmail']);
+
+// Route::get('/forget-password', [ChangePasswordController::class, 'getPassword']);
+
+// Route::post('/forget-password', [ChangePasswordController::class, 'updatePassword']);
+
+Route::get('forget-password', [ChangePasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ChangePasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ChangePasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ChangePasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');

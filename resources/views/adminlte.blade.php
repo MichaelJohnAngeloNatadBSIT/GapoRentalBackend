@@ -19,7 +19,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
    <link rel="stylesheet" href="{{asset("assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")}}">
    <link rel="stylesheet" href="{{asset("assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")}}">
    <link rel="stylesheet" href="{{asset("assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")}}">
-</head>
+
+  </head>
 <body class="hold-transition sidebar-mini">
   @include('sweetalert::alert')
 <div class="wrapper">
@@ -185,7 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{url("dashboard")}}" class="brand-link">
       <img src="{{asset("/assets/logo/gapo-rental-logo.jpg")}}" alt="Gapo Rental Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Gapo Rental</span>
     </a>
@@ -199,7 +200,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="info">
           <a href="{{url("/update_profile_form")}}" class="d-block">{{ Auth::guard('admin')->user()->email }}</a>
-          {{-- <a href="#" class="d-block">{{ Auth::guard('admin')->id() }}</a> --}}
         </div>
       </div>
 
@@ -253,9 +253,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Schedules</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{url("/sale_list")}}" class="nav-link {{ (app('request')->route()->uri() == "sale_list") ? "active" : ""}} ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sales</p>
+                </a>
+              </li>
             </ul>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -263,7 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -307,7 +313,89 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset("assets/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset("assets/dist/js/adminlte.min.js")}}"></script>
+{{-- @stack('graph-data-content') --}}
+<script>
+  $(function () {
+      // {{-- // var cData = JSON.parse(`<?php echo $chart_data; ?>`);--}}
+      /* ChartJS
+       * ------- 
+       * Here we will create a few charts using ChartJS
+       */
+  
+      //--------------
+      //- AREA CHART -
+      //--------------  [28, 48, 40, 19, 86, 27, 90]
+  
+      // Get context with jQuery - using jQuery's .get() method. ['July', 'August', 'September', 'October', 'Nomvember', 'December', 'January 2023'],
+      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+  
+      var areaChartData = {
+        labels  : ['July', 'August', 'September', 'October', 'Nomvember', 'December', 'January 2023'],
+        // cData.label,
+        datasets: [
+          {
+            label               : 'Sales',
+            backgroundColor     : 'rgba(60,141,188,0.9)',
+            borderColor         : 'rgba(60,141,188,0.8)',
+            pointRadius          : false,
+            pointColor          : '#3b8bba',
+            pointStrokeColor    : 'rgba(60,141,188,1)',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data                : {{$sales_graph_data}}
+            // cData.data,  [28, 48, 40, 19, 86, 27, 90]
+          },
+          {
+            label               : 'Houses',
+            backgroundColor     : 'rgba(210, 214, 222, 1)',
+            borderColor         : 'rgba(210, 214, 222, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(210, 214, 222, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                :  [65, 59, 80, 81, 56, 55, 40]
+            // cData.data,
+            // [65, 59, 80, 81, 56, 55, 40]
+            
+          },
+        ]
+      }
+  
+      var areaChartOptions = {
+        maintainAspectRatio : false,
+        responsive : true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            gridLines : {
+              display : false,
+            }
+          }],
+          yAxes: [{
+            gridLines : {
+              display : false,
+            }
+          }]
+        }
+      }
+  
+       // This will get the first returned node in the jQuery collection.
+       new Chart(areaChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+      })
+    })
+  
+    </script>
+
+
+
 </body>
+
 
    <!-- jQuery -->
    <script src="{{asset("assets/plugins/jquery/jquery.min.js")}}"></script>
@@ -329,13 +417,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
    
    <!-- AdminLTE App -->
    <script src="{{asset("assets/dist/js/adminlte.min.js")}}"></script>
-   <!-- AdminLTE for demo purposes -->
-   {{-- <script src="{{asset("assets/dist/js/demo.js")}}"></script> --}}
+   <!-- ChartJS -->
+   <script src="{{asset("assets/plugins/chart.js/Chart.min.js")}}"></script>
    <!-- Page specific script -->
+
    	
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
    <script>
+
      $(function () {
        $("#example1").DataTable({
          "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -375,5 +465,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         }
       });
      });
+
+    
+
+     
+  
    </script>
 </html>

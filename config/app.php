@@ -161,7 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        // UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         // RealRashid\SweetAlert\SweetAlertServiceProvider::class,
